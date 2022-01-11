@@ -16,8 +16,9 @@ refs.inputEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 function onInput() {
   const countryName = refs.inputEl.value;
 
-  if (!refs.inputEl.value) {
+  if (!countryName) {
     refs.listEl.innerHTML = '';
+    return;
   } else {
     fetchCountries(countryName).then(data => {
       if (data.length > 10) {
