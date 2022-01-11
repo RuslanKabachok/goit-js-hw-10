@@ -1,25 +1,15 @@
-// function fetchCountries() {
-//   const BASE_URL = 'https://restcountries.com/v3.1/name/';
+import Notiflix from 'notiflix';
 
-//   fetch(`${BASE_URL}${refs.inputEl.value}?fields=name,capital,population,flags,languages`)
-//     .then(response => response.json())
-//     .then(data => {
-//       if (refs.inputEl.value) {
-//         console.log(data);
-//         const markUp = data
-//           .map(
-//             country => `<li>
-//         <p>${country.name.official}</p>
-//         <p>${country.capital}</p>
-//         <p>${country.population}</p>
-//         <p>${Object.keys(country.languages)}</p>
-//         <img src="${country.flags.svg}" width="500" height="300"/>
-//       </li>`,
-//           )
-//           .join('');
-//         refs.listEl.innerHTML = markUp;
-//       } else {
-//         refs.listEl.innerHTML = '';
-//       }
-//     });
-// }
+function fetchCountries(countryName) {
+  const BASE_URL = 'https://restcountries.com/v3.1/name/';
+  return fetch(`${BASE_URL}${countryName}?fields=name,capital,population,flags,languages`).then(
+    response => {
+      if (!response.ok) {
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+      }
+      return response.json();
+    },
+  );
+}
+
+export { fetchCountries };
